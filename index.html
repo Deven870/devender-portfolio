@@ -1,1 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Devender | Portfolio</title>
+
+  <!-- React CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+    }
+    section {
+      padding: 80px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h1, h2 {
+      margin-bottom: 10px;
+    }
+    .card {
+      background: #111827;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    function App() {
+      return (
+        <>
+          <section>
+            <h1>Devender</h1>
+            <h2>AI & Full Stack Developer</h2>
+            <p>
+              Computer Science Engineering student focused on Machine Learning
+              and intelligent systems.
+            </p>
+          </section>
+
+          <section>
+            <h2>Certifications</h2>
+            <div className="card">
+              Artificial Intelligence Fundamentals – IBM SkillBuild
+            </div>
+            <div className="card">
+              Building AI Solutions Using Advanced Algorithms – IBM SkillBuild
+            </div>
+            <div className="card">
+              Sustainability & Technology – IBM SkillBuild
+            </div>
+            <div className="card">
+              Project Management Fundamentals – IBM SkillBuild
+            </div>
+          </section>
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
 

@@ -1,0 +1,168 @@
+/* ============================================
+   PORTFOLIO STYLES - Optimized for Performance
+   ============================================ */
+
+/* CSS Custom Properties for Easy Theming */
+:root {
+  --primary: #60a5fa;
+  --primary-dark: #3b82f6;
+  --primary-darker: #2563eb;
+  --bg-dark: #0f172a;
+  --bg-darker: #1e293b;
+  --bg-card: #334155;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-color: rgba(148, 163, 184, 0.1);
+  --shadow-color: rgba(59, 130, 246, 0.2);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   UTILITY ANIMATIONS
+   ============================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+/* Hardware acceleration for smooth animations */
+.card, .skill-tag, .fab, nav {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Smooth scrolling with reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   DARK MODE SUPPORT
+   ============================================ */
+
+[data-theme="light"] {
+  --bg-dark: #f8fafc;
+  --bg-darker: #e2e8f0;
+  --bg-card: #cbd5e1;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --border-color: rgba(15, 23, 42, 0.1);
+}
+
+/* ============================================
+   ACCESSIBILITY IMPROVEMENTS
+   ============================================ */
+
+/* Focus visible for keyboard navigation */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Skip to content link for screen readers */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 10001;
+  padding: 1rem;
+  background: var(--primary);
+  color: white;
+  text-decoration: none;
+}
+
+.skip-to-content:focus {
+  left: 0;
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+  nav,
+  .theme-toggle,
+  .fab-container,
+  .scroll-progress,
+  #particles-canvas {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .card {
+    page-break-inside: avoid;
+  }
+}
+
+/* ============================================
+   ADDITIONAL EFFECTS
+   ============================================ */
+
+/* Glitch effect for text (optional) */
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+/* Text gradient shimmer */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, var(--primary), var(--primary-darker), var(--primary));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 3s ease infinite;
+}

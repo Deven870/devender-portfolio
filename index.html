@@ -2,33 +2,738 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Devender | Portfolio</title>
 
   <!-- React CDN -->
   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    body {
+    :root {
+      --primary: #60a5fa;
+      --primary-dark: #3b82f6;
+      --primary-darker: #2563eb;
+      --bg-dark: #0f172a;
+      --bg-darker: #1e293b;
+      --bg-card: #334155;
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --border-color: rgba(148, 163, 184, 0.1);
+      --shadow-color: rgba(59, 130, 246, 0.2);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
+      padding: 0;
+      box-sizing: border-box;
     }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
+      color: var(--text-secondary);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom Cursor */
+    .custom-cursor {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.2s ease, width 0.3s ease, height 0.3s ease;
+      mix-blend-mode: difference;
+    }
+
+    .custom-cursor.hover {
+      width: 50px;
+      height: 50px;
+      background: rgba(96, 165, 250, 0.1);
+    }
+
+    .cursor-follower {
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease;
+    }
+
+    /* Loading Screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(96, 165, 250, 0.1);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Scroll Progress Bar */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-darker));
+      z-index: 10000;
+      transform-origin: left;
+      transition: width 0.1s linear;
+    }
+
+    /* Floating Action Buttons */
+    .fab-container {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .fab {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 15px var(--shadow-color);
+      transition: var(--transition);
+      animation: fadeInUp 0.5s ease backwards;
+    }
+
+    .fab:hover {
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 8px 25px var(--shadow-color);
+    }
+
+    .fab:nth-child(1) { animation-delay: 0.1s; }
+    .fab:nth-child(2) { animation-delay: 0.2s; }
+    .fab:nth-child(3) { animation-delay: 0.3s; }
+
+    /* Particles Background */
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    /* Parallax Layers */
+    .parallax-layer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      padding: 1rem 2rem;
+      z-index: 1000;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid var(--border-color);
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+    }
+
+    nav.hidden {
+      transform: translateY(-100%);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    nav a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: #60a5fa;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      wTheme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1001;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1) rotate(15deg);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+    }
+
+    .theme-toggle i {
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    /* idth: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: linear-gradient(90deg, #60a5fa, #3b82f6);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Sections */
     section {
-      padding: 80px 20px;
-      max-width: 1000px;
+      padding: 100px 20px;
+      max-width: 1100px;
       margin: auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
-    h1, h2 {
-      margin-bottom: 10px;
+
+    section:first-of-type {
+      margin-top: 60px;
     }
+
+    h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 50%, var(--primary-darker) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      animation: fadeInUp 0.8s ease, textGlow 3s ease-in-out infinite;
+      min-height: 80px;
+      text-shadow: 0 0 40px rgba(96, 165, 250, 0.3);
+    }
+
+    @keyframes textGlow {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.2); }
+    }
+
+    /* Typing Animation */
+    .typing-text {
+      display: inline-block;
+      border-right: 3px solid #60a5fa;
+      animation: blink 0.7s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { border-color: #60a5fa; }
+      51%, 100% { border-color: transparent; }
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      border-radius: 2px;
+      animation: slideIn 0.6s ease;
+    }
+
+    @keyframes slideIn {
+      from {var(--text-muted);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+      animation: fadeInUp 0.8s ease 0.2s backwards;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      animation: fadeInUp 0.8s ease 0.4s backwards;
+    }
+
+    /* 3D Cards with Tilt Effect */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+      perspective: 1000px;
+    }
+
     .card {
-      background: #111827;
-      padding: 20px;
+      background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-card) 100%);
+      padding: 2rem;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.6s ease backwards;
+      transform-style: preserve-3d;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark), var(--primary-darker));
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(96, 165, 250, 0.1) 0%, transparent 70%);
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.5s ease;
+      border-radius: 50%;
+    }
+
+    .card:hover::before {
+      transform: translateX(0);
+    }
+
+    .card:hover::after {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .card:hover {
+      transform: translateY(-10px) rotateX(2deg);
+      box-shavar(--text-primary);
+      position: relative;
+      z-index: 1;
+    }
+
+    .card p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin: 0;
+      position: relative;
+      z-index: 1::before {
+      transform: translateX(0);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+      border-color: rgba(96, 165, 250, 0.3);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      color: #f1f5f9;
+    }
+
+    .card p {
+      font-size: 1rem;
+      color: #94a3b8;
+      margin: 0;
+    }
+
+    /* Project Cards with Image Hover */
+    .project-card {
+      position: relative;
+      height: 350px;
+      overflow: hidden;
+    }
+
+    .project-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, #1e293b 0%, transparent 100%);
+      padding: 2rem;
+      transform: translateY(60%);
+      transition: transform 0.4s ease;
+    }
+
+    .project-card:hover .project-overlay {
+      transform: translateY(0);
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .project-tag {
+      background: rgba(96, 165, 250, 0.2);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: #60a5fa;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .project-link {
+      color: #60a5fa;
+      text-decoration: none;
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .project-link:hover {
+      color: #3b82f6;
+      transform: scale(1.2);
+    }
+
+    /* Skills Section */
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .skill-tag {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.5s ease backwards;
+    }
+
+    .skill-tag:hover {
+      background: linear-gradient(135deg, #334155 0%, #475569 100%);
+      border-color: #60a5fa;
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    /* Progress bars for skills */
+    .skill-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .skill-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-bar {
+      background: #1e293b;
+      height: 10px;
       border-radius: 10px;
-      margin-bottom: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .skill-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #60a5fa, #3b82f6);
+      border-radius: 10px;
+      transition: width 1.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-progress::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Stats Counter */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block;
+    }
+
+    .stat-label {
+      color: #94a3b8;
+      margin-top: 0.5rem;
+    }
+
+    /* Contact Section */
+    .contact-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-btn {
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .contact-btn:hover {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+    }
+
+    .contact-btn i {
+      margin-right: 0.5rem;
+    }
+
+    /* Contact Form */
+    .contact-form {
+      max-width: 600px;
+      margin-top: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #cbd5e1;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      background: #1e293b;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 8px;
+      color: #e5e7eb;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #60a5fa;
+      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      h2 {
+        font-size: 2rem;
+      }
+
+      .subtitle {
+        font-size: 1.3rem;
+      }
+
+      nav ul {
+        gap: 1rem;
+        font-size: 0.9rem;
+      }
+
+      section {
+        padding: 60px 20px;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+      }
+      40% {
+        transform: translateX(-50%) translateY(-10px);
+      }
+      60% {
+        transform: translateX(-50%) translateY(-5px);
+      }
     }
   </style>
 </head>
@@ -37,31 +742,533 @@
   <div id="root"></div>
 
   <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    // Particles Background Component
+    function ParticlesBackground() {
+      const canvasRef = useRef(null);
+
+      useEffect(() => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 80;
+
+        class Particle {
+          constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
+            this.radius = Math.random() * 2 + 1;
+          }
+
+          update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+          }
+
+          draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(96, 165, 250, 0.5)';
+            ctx.fill();
+          }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+          particles.push(new Particle());
+        }
+
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          particles.forEach(particle => {
+            particle.update();
+            particle.draw();
+          });
+
+          // Connect nearby particles
+          for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+              const dx = particles[i].x - particles[j].x;
+              const dy = particles[i].y - particles[j].y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+
+              if (distance < 120) {
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(96, 165, 250, ${0.2 * (1 - distance / 120)})`;
+                ctx.lineWidth = 1;
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.stroke();
+              }
+            }
+          }
+
+          requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        const handleResize = () => {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }, []);
+
+      return <canvas ref={canvasRef} id="particles-canvas" />;
+    }
+
+    // Typing Effect Hook
+    function useTypingEffect(texts, speed = 100) {
+      const [displayText, setDisplayText] = useState('');
+      const [textIndex, setTextIndex] = useState(0);
+      const [isDeleting, setIsDeleting] = useState(false);
+
+      useEffect(() => {
+        const currentText = texts[textIndex];
+        
+        const timer = setTimeout(() => {
+          if (!isDeleting) {
+            if (displayText.length < currentText.length) {
+              setDisplayText(currentText.slice(0, displayText.length + 1));
+            } else {
+              setTimeout(() => setIsDeleting(true), 2000);
+            }
+          } else {
+            if (displayText.length > 0) {
+              setDisplayText(currentText.slice(0, displayText.length - 1));
+            } else {
+              setIsDeleting(false);
+              setTextIndex((textIndex + 1) % texts.length);
+            }
+          }
+        }, isDeleting ? speed / 2 : speed);
+
+        return () => clearTimeout(timer);
+      }, [displayText, isDeleting, textIndex, texts, speed]);
+
+      return displayText;
+    }
+
+    // Counter Animation Hook
+    function useCountUp(end, duration = 2000) {
+      const [count, setCount] = useState(0);
+      const [hasStarted, setHasStarted] = useState(false);
+
+      const startCounting = () => {
+        if (hasStarted) return;
+        setHasStarted(true);
+        
+        const startTime = Date.now();
+        const animate = () => {
+          const now = Date.now();
+          const progress = Math.min((now - startTime) / duration, 1);
+          setCount(Math.floor(progress * end));
+          
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          }
+        };
+        animate();
+      };
+
+      return [count, startCounting];
+    }
+
+    // Skill Progress Bar Component
+    function SkillBar({ name, level, delay }) {
+      const [width, setWidth] = useState(0);
+      const skillRef = useRef(null);
+
+      useEffect(() => {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            if (entries[0].isIntersecting) {
+              setTimeout(() => setWidth(level), delay);
+            }
+          },
+          { threshold: 0.5 }
+        );
+
+        if (skillRef.current) {
+          observer.observe(skillRef.current);
+        }
+
+        return () => observer.disconnect();
+      }, [level, delay]);
+
+      return (
+        <div className="skill-item" ref={skillRef}>
+          <div className="skill-info">
+            <span>{name}</span>
+            <span>{level}%</span>
+          </div>
+          <div className="skill-bar">
+            <div className="skill-progress" style={{ width: `${width}%` }}></div>
+          </div>
+        </div>
+      );
+    }
+
     function App() {
+      const [theme, setTheme] = useState('dark');
+      const [scrollProgress, setScrollProgress] = useState(0);
+      const [loading, setLoading] = useState(true);
+      const [activeSection, setActiveSection] = useState('home');
+      const roles = ['AI Developer', 'Full Stack Developer', 'ML Engineer', 'Problem Solver'];
+      const typedText = useTypingEffect(roles, 100);
+
+      const [projectsCount, startProjectsCount] = useCountUp(15);
+      const [certificationsCount, startCertificationsCount] = useCountUp(4);
+      const [skillsCount, startSkillsCount] = useCountUp(20);
+
+      // Loading Screen
+      useEffect(() => {
+        setTimeout(() => setLoading(false), 1500);
+      }, []);
+
+      // Custom Cursor
+      useEffect(() => {
+        const cursor = document.createElement('div');
+        cursor.className = 'custom-cursor';
+        const follower = document.createElement('div');
+        follower.className = 'cursor-follower';
+        document.body.appendChild(cursor);
+        document.body.appendChild(follower);
+
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let followerX = 0, followerY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        });
+
+        function animate() {
+          cursorX += (mouseX - cursorX) * 0.3;
+          cursorY += (mouseY - cursorY) * 0.3;
+          followerX += (mouseX - followerX) * 0.15;
+          followerY += (mouseY - followerY) * 0.15;
+
+          cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+          follower.style.transform = `translate(${followerX - 4}px, ${followerY - 4}px)`;
+
+          requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Add hover effect for interactive elements
+        const hoverElements = document.querySelectorAll('a, button, .card, .skill-tag');
+        hoverElements.forEach(el => {
+          el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+          el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        return () => {
+          cursor.remove();
+          follower.remove();
+        };
+      }, [loading]);
+
+      // Scroll Progress
+      useEffect(() => {
+        const handleScroll = () => {
+          const scrollTop = window.scrollY;
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = (scrollTop / docHeight) * 100;
+          setScrollProgress(progress);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+
+      // Scroll Reveal
+      useEffect(() => {
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+            }
+          });
+        }, { threshold: 0.15 });
+
+        reveals.forEach(reveal => observer.observe(reveal));
+        return () => observer.disconnect();
+      }, [loading]);
+
+      // Active Section Detection
+      useEffect(() => {
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              setActiveSection(entry.target.id);
+            }
+          });
+        }, { threshold: 0.5 });
+
+        sections.forEach(section => observer.observe(section));
+        return () => observer.disconnect();
+      }, [loading]);
+
+      // Stats Counter
+      useEffect(() => {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                startProjectsCount();
+                startCertificationsCount();
+                startSkillsCount();
+              }
+            });
+          },
+          { threshold: 0.5 }
+        );
+
+        const statsSection = document.querySelector('#about');
+        if (statsSection) observer.observe(statsSection);
+
+        return () => observer.disconnect();
+      }, []);
+
+      const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+
+      if (loading) {
+        return (
+          <div className="loading-screen">
+            <div className="loader"></div>
+          </div>
+        );
+      }
+
       return (
         <>
-          <section>
+          <div className="scroll-progress" style={{ width: `${scrollProgress}%` }}></div>
+          
+          <ParticlesBackground />
+          
+          <button className="theme-toggle" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+            <i className={theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'}></i>
+          </button>
+
+          <div className="fab-container">
+            <div className="fab" onClick={scrollToTop} title="Scroll to top">
+              <i className="fas fa-arrow-up"></i>
+            </div>
+            <a href="https://github.com/yourusername" target="_blank" className="fab" title="GitHub">
+              <i className="fab fa-github"></i>
+            </a>
+            <a href="https://linkedin.com/in/yourusername" target="_blank" className="fab" title="LinkedIn">
+              <i className="fab fa-linkedin"></i>
+            </a>
+          </div>
+
+          <nav>
+            <ul>
+              <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>Home</a></li>
+              <li><a href="#about" className={activeSection === 'about' ? 'active' : ''}>About</a></li>
+              <li><a href="#skills" className={activeSection === 'skills' ? 'active' : ''}>Skills</a></li>
+              <li><a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>Projects</a></li>
+              <li><a href="#certifications" className={activeSection === 'certifications' ? 'active' : ''}>Certifications</a></li>
+              <li><a href="#contact" className={activeSection === 'contact' ? 'active' : ''}>Contact</a></li>
+            </ul>
+          </nav>
+
+          <section id="home" className="reveal">
             <h1>Devender</h1>
-            <h2>AI & Full Stack Developer</h2>
+            <h2 className="subtitle">
+              <span className="typing-text">{typedText}</span>
+            </h2>
             <p>
               Computer Science Engineering student focused on Machine Learning
-              and intelligent systems.
+              and intelligent systems. Passionate about building innovative solutions
+              that make a difference.
             </p>
           </section>
 
-          <section>
+          <section id="about" className="reveal">
+            <h2>About Me</h2>
+            <p style={{maxWidth: '800px', marginTop: '2rem'}}>
+              I'm a dedicated Computer Science Engineering student with a strong passion 
+              for Artificial Intelligence and Full Stack Development. My journey in tech 
+              has equipped me with expertise in building intelligent systems and scalable 
+              web applications. I constantly strive to learn new technologies and apply 
+              them to solve real-world problems.
+            </p>
+
+            <div className="stats-grid">
+              <div className="stat-item">
+                <span className="stat-number">{projectsCount}+</span>
+                <span className="stat-label">Projects Completed</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">{certificationsCount}</span>
+                <span className="stat-label">Certifications</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">{skillsCount}+</span>
+                <span className="stat-label">Technologies</span>
+              </div>
+            </div>
+          </section>
+
+          <section id="skills" className="reveal">
+            <h2>Skills & Technologies</h2>
+            <div style={{marginTop: '2rem'}}>
+              <SkillBar name="Python & Machine Learning" level={90} delay={0} />
+              <SkillBar name="React.js & JavaScript" level={85} delay={100} />
+              <SkillBar name="Node.js & Backend Development" level={80} delay={200} />
+              <SkillBar name="TensorFlow & Deep Learning" level={85} delay={300} />
+              <SkillBar name="HTML, CSS & UI/UX" level={95} delay={400} />
+              <SkillBar name="MongoDB & Databases" level={80} delay={500} />
+              <SkillBar name="Git & Version Control" level={90} delay={600} />
+            </div>
+          </section>
+
+          <section id="projects" className="reveal">
+            <h2>Featured Projects</h2>
+            <div className="cards-grid">
+              <div className="card project-card" style={{animationDelay: '0s'}}>
+                <div className="project-overlay">
+                  <h3>AI Chatbot System</h3>
+                  <p>An intelligent chatbot using NLP and machine learning for natural conversations.</p>
+                  <div className="project-tags">
+                    <span className="project-tag">Python</span>
+                    <span className="project-tag">TensorFlow</span>
+                    <span className="project-tag">NLP</span>
+                  </div>
+                  <div className="project-links">
+                    <a href="https://github.com" target="_blank" className="project-link">
+                      <i className="fab fa-github"></i>
+                    </a>
+                    <a href="#" target="_blank" className="project-link">
+                      <i className="fas fa-external-link-alt"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="card project-card" style={{animationDelay: '0.1s'}}>
+                <div className="project-overlay">
+                  <h3>E-Commerce Platform</h3>
+                  <p>Full-stack shopping platform with payment integration and real-time inventory.</p>
+                  <div className="project-tags">
+                    <span className="project-tag">React</span>
+                    <span className="project-tag">Node.js</span>
+                    <span className="project-tag">MongoDB</span>
+                  </div>
+                  <div className="project-links">
+                    <a href="https://github.com" target="_blank" className="project-link">
+                      <i className="fab fa-github"></i>
+                    </a>
+                    <a href="#" target="_blank" className="project-link">
+                      <i className="fas fa-external-link-alt"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="card project-card" style={{animationDelay: '0.2s'}}>
+                <div className="project-overlay">
+                  <h3>Image Recognition App</h3>
+                  <p>Deep learning model for real-time image classification and object detection.</p>
+                  <div className="project-tags">
+                    <span className="project-tag">Python</span>
+                    <span className="project-tag">CNN</span>
+                    <span className="project-tag">OpenCV</span>
+                  </div>
+                  <div className="project-links">
+                    <a href="https://github.com" target="_blank" className="project-link">
+                      <i className="fab fa-github"></i>
+                    </a>
+                    <a href="#" target="_blank" className="project-link">
+                      <i className="fas fa-external-link-alt"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="certifications" className="reveal">
             <h2>Certifications</h2>
-            <div className="card">
-              Artificial Intelligence Fundamentals – IBM SkillBuild
+            <div className="cards-grid">
+              <div className="card" style={{animationDelay: '0s'}}>
+                <h3>🎓 Artificial Intelligence Fundamentals</h3>
+                <p>IBM SkillBuild</p>
+              </div>
+              <div className="card" style={{animationDelay: '0.1s'}}>
+                <h3>🤖 Building AI Solutions Using Advanced Algorithms</h3>
+                <p>IBM SkillBuild</p>
+              </div>
+              <div className="card" style={{animationDelay: '0.2s'}}>
+                <h3>🌱 Sustainability & Technology</h3>
+                <p>IBM SkillBuild</p>
+              </div>
+              <div className="card" style={{animationDelay: '0.3s'}}>
+                <h3>📊 Project Management Fundamentals</h3>
+                <p>IBM SkillBuild</p>
+              </div>
             </div>
-            <div className="card">
-              Building AI Solutions Using Advanced Algorithms – IBM SkillBuild
+          </section>
+
+          <section id="contact" className="reveal">
+            <h2>Let's Connect</h2>
+            <p style={{marginTop: '2rem', marginBottom: '2rem'}}>
+              I'm always open to discussing new projects, creative ideas, or 
+              opportunities to be part of your vision.
+            </p>
+            
+            <div className="contact-links">
+              <a href="mailto:your.email@example.com" className="contact-btn">
+                <i className="fas fa-envelope"></i> Email Me
+              </a>
+              <a href="https://github.com/yourusername" target="_blank" className="contact-btn">
+                <i className="fab fa-github"></i> GitHub
+              </a>
+              <a href="https://linkedin.com/in/yourusername" target="_blank" className="contact-btn">
+                <i className="fab fa-linkedin"></i> LinkedIn
+              </a>
+              <a href="https://twitter.com/yourusername" target="_blank" className="contact-btn">
+                <i className="fab fa-twitter"></i> Twitter
+              </a>
             </div>
-            <div className="card">
-              Sustainability & Technology – IBM SkillBuild
-            </div>
-            <div className="card">
-              Project Management Fundamentals – IBM SkillBuild
+
+            <div className="contact-form">
+              <form onSubmit={(e) => { e.preventDefault(); alert('Message sent! (Demo)'); }}>
+                <div className="form-group">
+                  <label>Name</label>
+                  <input type="text" placeholder="Your Name" required />
+                </div>
+                <div className="form-group">
+                  <label>Email</label>
+                  <input type="email" placeholder="your.email@example.com" required />
+                </div>
+                <div className="form-group">
+                  <label>Message</label>
+                  <textarea placeholder="Your message here..." required></textarea>
+                </div>
+                <button type="submit" className="submit-btn">
+                  <i className="fas fa-paper-plane"></i> Send Message
+                </button>
+              </form>
             </div>
           </section>
         </>

@@ -39,7 +39,7 @@ function smoothScrollTo(targetId, duration = 1000) {
 // PARALLAX EFFECT
 // ============================================
 function initParallax() {
-  const parallaxElements = document.querAll('.parallax');
+  const parallaxElements = document.querySelectorAll('.parallax');
   
   window.addEventListener('scroll', () => {
     requestAnimationFrame(() => {

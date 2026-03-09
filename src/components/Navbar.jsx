@@ -35,6 +35,11 @@ function Navbar() {
               </button>
             </li>
             <li>
+              <button onClick={() => scrollToSection('experience')} className="text-gray-300 hover:text-primary transition-colors duration-200">
+                Experience
+              </button>
+            </li>
+            <li>
               <button onClick={() => scrollToSection('projects')} className="text-gray-300 hover:text-primary transition-colors duration-200">
                 Projects
               </button>

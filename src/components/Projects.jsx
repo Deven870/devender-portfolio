@@ -1,5 +1,8 @@
+import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 function Projects() {
+  const [ref, isVisible] = useScrollAnimation()
+  
   const projects = [
     {
       title: 'Stock Price Prediction',
@@ -25,7 +28,13 @@ function Projects() {
   ]
 
   return (
-    <section id="projects" className="min-h-screen flex items-center justify-center px-6 py-20">
+    <section 
+      ref={ref}
+      id="projects" 
+      className={`min-h-screen flex items-center justify-center px-6 py-20 transition-all duration-1000 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      }`}
+    >
       <div className="max-w-6xl mx-auto w-full">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
           <span className="bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
@@ -37,7 +46,8 @@ function Projects() {
           {projects.map((project, index) => (
             <div 
               key={index}
-              className="bg-bg-card p-6 rounded-xl border border-gray-700 hover:border-primary hover:-translate-y-2 transition-all duration-300 group"
+              className="bg-bg-card p-6 rounded-xl border border-gray-700 hover:border-primary hover:-translate-y-4 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 group animate-fade-in"
+              style={{ animationDelay: `${index * 0.2}s` }}
             >
               <div className="flex items-center mb-4">
                 <i className={`fas ${project.icon} text-3xl text-primary mr-3`}></i>

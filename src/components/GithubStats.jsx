@@ -1,9 +1,16 @@
+import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 function GithubStats() {
+  const [ref, isVisible] = useScrollAnimation()
   const username = 'Deven870' // Your actual GitHub username
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 py-20">
+    <section 
+      ref={ref}
+      className={`min-h-screen flex items-center justify-center px-6 py-20 transition-all duration-1000 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      }`}
+    >
       <div className="max-w-6xl mx-auto w-full">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
           <span className="bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">

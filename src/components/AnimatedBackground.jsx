@@ -102,20 +102,21 @@ function AnimatedBackground() {
     <>
       {/* Animated Gradient Background */}
       <div className="fixed inset-0 -z-20 bg-bg-dark">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5 animate-gradient"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-purple-500/5 to-pink-500/10 animate-gradient"></div>
       </div>
 
       {/* Particle Canvas */}
       <canvas
         ref={canvasRef}
-        className="fixed inset-0 -z-10 opacity-60"
+        className="fixed inset-0 -z-10 opacity-80"
         style={{ pointerEvents: 'none' }}
       />
 
-      {/* Radial Gradient Overlays */}
-      <div className="fixed inset-0 -z-20">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse-slow"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse-slow-delayed"></div>
+      {/* Radial Gradient Overlays - More Visible */}
+      <div className="fixed inset-0 -z-15 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/30 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-purple-500/30 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-pink-500/20 rounded-full blur-3xl animate-pulse-slow"></div>
       </div>
     </>
   )

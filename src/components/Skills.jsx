@@ -35,10 +35,11 @@ function Skills() {
           {skills.map((skill, index) => (
             <div 
               key={index}
-              className="bg-bg-card p-6 rounded-xl border border-gray-700 hover:border-primary hover:scale-110 transition-all duration-300 cursor-pointer group"
+              className="bg-bg-card p-6 rounded-xl border border-gray-700 hover:border-primary hover:scale-110 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 cursor-pointer group animate-fade-in"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="flex flex-col items-center text-center">
-                <i className={`${skill.icon} text-5xl mb-3 ${skill.color} group-hover:scale-110 transition-transform duration-200`}></i>
+                <i className={`${skill.icon} text-5xl mb-3 ${skill.color} group-hover:scale-125 group-hover:rotate-12 transition-all duration-300`}></i>
                 <h3 className="text-gray-200 font-semibold">{skill.name}</h3>
               </div>
             </div>

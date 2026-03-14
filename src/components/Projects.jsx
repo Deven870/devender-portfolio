@@ -24,6 +24,36 @@ function Projects() {
       github: 'https://github.com/Deven870/strock-price-sentiment',
       icon: 'fa-chart-line'
     },
+    {
+      title: 'SmartDetect — Fraudulent Insurance Claim Detection',
+      category: 'Machine Learning | Healthcare AI',
+      problem: 'Detect fraudulent Medicare insurance claims at scale, where manual review processes are slow and error-prone.',
+      approach: 'Built SmartDetect, an AI-powered classification system using supervised ML models trained on claim patterns, anomaly scores, and domain-specific features.',
+      outcome: 'Delivered a working fraud detection pipeline applicable to real Medicare datasets, demonstrating applied ML in a high-stakes compliance domain.',
+      tech: ['Python', 'scikit-learn', 'Pandas', 'NumPy', 'HTML'],
+      github: 'https://github.com/Deven870/fraudlent-claim-detection',
+      icon: 'fa-file-medical'
+    },
+    {
+      title: 'Stock Price Prediction Dashboard',
+      category: 'Data Visualization | Financial Analytics',
+      problem: 'Make stock price predictions interpretable and actionable through an interactive analytical dashboard.',
+      approach: 'Extended the LSTM forecasting model with a Jupyter-based dashboard showing price trends, prediction overlays, and model evaluation metrics.',
+      outcome: 'Produced a visual analytics layer on top of the ML model, making predictions easier to explore and present.',
+      tech: ['Python', 'Jupyter Notebook', 'Matplotlib', 'Pandas', 'TensorFlow'],
+      github: 'https://github.com/Deven870/stock-prediction-dashboard',
+      icon: 'fa-chart-bar'
+    },
+    {
+      title: 'Employee Salary Prediction',
+      category: 'Machine Learning | HR Analytics',
+      problem: 'Predict employee compensation levels from structured HR data to support data-driven workforce planning.',
+      approach: 'Trained and compared regression models on employee features including role, experience, and department, with a full preprocessing and evaluation pipeline.',
+      outcome: 'Delivered a Jupyter-based ML workflow showcasing regression modeling and HR domain applicability.',
+      tech: ['Python', 'Jupyter Notebook', 'scikit-learn', 'Pandas', 'NumPy'],
+      github: 'https://github.com/Deven870/Employee-salary-prediction',
+      icon: 'fa-user-tie'
+    },
   ]
 
   return (
@@ -41,7 +71,7 @@ function Projects() {
           </span>
         </h2>
         
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <div 
               key={index}

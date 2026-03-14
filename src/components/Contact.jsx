@@ -78,9 +78,6 @@ function Contact() {
         <div className="text-center mb-8 text-gray-300 space-y-1">
           <p>Greater Noida, India</p>
           <p>
-            Phone: <a href="tel:+919987318617" className="hover:text-primary transition-colors duration-200">+91 9987318617</a>
-          </p>
-          <p>
             Email: <a href="mailto:dev2004.rld@gmail.com" className="hover:text-primary transition-colors duration-200">dev2004.rld@gmail.com</a>
           </p>
         </div>

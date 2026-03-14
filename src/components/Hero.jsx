@@ -18,7 +18,7 @@ function Hero() {
         </p>
 
         <p className="text-sm md:text-base text-gray-500 mb-8 animate-fade-in" style={{ animationDelay: '0.45s' }}>
-          Greater Noida, India | +91 9987318617 | dev2004.rld@gmail.com
+          Greater Noida, India | dev2004.rld@gmail.com
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.6s' }}>

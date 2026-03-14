@@ -5,6 +5,19 @@ function Experience() {
 
   const experiences = [
     {
+      title: 'AI & ML Intern (Certified Program)',
+      company: 'Edunet Foundation in collaboration with AICTE',
+      location: 'India',
+      period: '18 Jun 2025 - 30 Jul 2025',
+      description: [
+        'Successfully completed a 6-week internship on Artificial Intelligence and Machine Learning',
+        'Participated in structured training delivered by Edunet Foundation in collaboration with All India Council for Technical Education (AICTE)',
+        'Demonstrated active participation and engagement throughout the internship program',
+        'Certificate-backed participation with Student STU ID: STU642cd4887b0121680659592'
+      ],
+      technologies: ['Artificial Intelligence', 'Machine Learning', 'AICTE', 'Edunet Foundation']
+    },
+    {
       title: 'Software Developer',
       company: 'Xpedicr Industry',
       location: 'India',

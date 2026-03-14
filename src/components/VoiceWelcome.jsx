@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-//edvender portfolio
+
 function VoiceWelcome() {
   const [hasPlayed, setHasPlayed] = useState(false);
   const [isSupported, setIsSupported] = useState(true);
@@ -7,7 +7,7 @@ function VoiceWelcome() {
   const speakWelcome = () => {
     // Check if browser supports Speech Synthesis
     if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance('Hello and welcome to Dev portfolio');
+      const utterance = new SpeechSynthesisUtterance('Hello and welcome to Devender portfolio.');
       
       // Configure voice settings
       utterance.rate = 0.9; // Slightly slower for clarity

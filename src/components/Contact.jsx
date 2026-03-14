@@ -37,6 +37,16 @@ function Contact() {
             Get In Touch
           </span>
         </h2>
+
+        <div className="text-center mb-8 text-gray-300 space-y-1">
+          <p>Greater Noida, India</p>
+          <p>
+            Phone: <a href="tel:+919987318617" className="hover:text-primary transition-colors duration-200">+91 9987318617</a>
+          </p>
+          <p>
+            Email: <a href="mailto:dev2004.rld@gmail.com" className="hover:text-primary transition-colors duration-200">dev2004.rld@gmail.com</a>
+          </p>
+        </div>
         
         {/* Social Links */}
         <div className="flex justify-center gap-6 mb-12">
@@ -59,7 +69,7 @@ function Contact() {
           </a>
           
           <a 
-            href="mailto:devindra4624@gmail.com"
+            href="mailto:dev2004.rld@gmail.com"
             className="w-14 h-14 bg-bg-card border border-gray-700 hover:border-primary rounded-full flex items-center justify-center text-2xl hover:scale-110 transition-all duration-300 group"
           >
             <i className="fas fa-envelope text-gray-400 group-hover:text-primary"></i>
@@ -129,7 +139,9 @@ function Contact() {
 
         {/* Footer */}
         <div className="text-center mt-12 text-gray-400">
-          <p className="mb-2">devindra4624@gmail.com</p>
+          <p className="mb-2">
+            <a href="mailto:dev2004.rld@gmail.com" className="hover:text-primary transition-colors duration-200">dev2004.rld@gmail.com</a>
+          </p>
           <p className="text-sm">© 2026 Devender. Built with React & Tailwind CSS</p>
         </div>
       </div>

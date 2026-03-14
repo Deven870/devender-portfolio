@@ -8,14 +8,14 @@ function Projects() {
       title: 'Women Safety Analysis and Intelligent Threat Protection',
       description: 'Built a real-time computer vision system for threat detection with facial recognition and automated distress alert mechanisms.',
       tech: ['Python', 'OpenCV', 'MediaPipe', 'DeepFace', 'NumPy'],
-      github: 'https://github.com/Deven870/stock-prediction',
+      github: 'https://github.com/Deven870/women-safety',
       icon: 'fa-shield-alt'
     },
     {
       title: 'Stock Price Prediction Using LSTM Neural Networks',
       description: 'Developed a deep learning forecasting pipeline with data preprocessing, normalization, and evaluation using TensorFlow and Keras.',
       tech: ['Python', 'TensorFlow', 'Keras', 'scikit-learn', 'Pandas'],
-      github: 'https://github.com/Deven870/women-safety',
+      github: 'https://github.com/Deven870/strock-price-sentiment',
       icon: 'fa-chart-line'
     },
   ]

@@ -1,4 +1,5 @@
 import AnimatedBackground from './components/AnimatedBackground'
+import CodingEvidence from './components/CodingEvidence'
 import Contact from './components/Contact'
 import Credentials from './components/Credentials'
 import Experience from './components/Experience'
@@ -23,6 +24,7 @@ function App() {
       <Navbar />
       <Hero />
       <Skills />
+      <CodingEvidence />
       <Credentials />
       <Experience />
       <Projects />

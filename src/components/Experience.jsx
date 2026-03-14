@@ -6,15 +6,16 @@ function Experience() {
   const experiences = [
     {
       title: 'Software Developer',
-      company: 'Spedicr Industry',
+      company: 'Xpedicr Industry',
       location: 'India',
       period: 'Aug 2025 - Feb 2026',
       description: [
-        'Developed backend services using Python and RESTful APIs to support internal business applications',
-        'Improved database performance by optimizing SQL and MongoDB queries',
-        'Worked with Git and GitHub for version control, collaborative development, and code reviews'
+        'Developed RESTful backend APIs using Python for internal business applications and operational data workflows',
+        'Optimized SQL and MongoDB queries, improving database performance and system responsiveness',
+        'Implemented modular backend components that improved scalability and maintainability of enterprise applications',
+        'Collaborated through Git-based workflows including feature branching, pull requests, and code reviews'
       ],
-      technologies: ['Python', 'RESTful APIs', 'SQL', 'MongoDB', 'Git', 'GitHub']
+      technologies: ['Python', 'RESTful APIs', 'SQL', 'MongoDB', 'Git', 'System Design']
     },
     {
       title: 'Summer Intern',
@@ -22,11 +23,11 @@ function Experience() {
       location: 'India',
       period: 'June 2024 - July 2024',
       description: [
-        'Researched emerging technologies and digital transformation frameworks',
-        'Contributed to structured analytics documentation and reporting',
-        'Evaluated feasibility of technology adoption models'
+        'Researched emerging technologies including artificial intelligence, cloud computing, and digital transformation frameworks',
+        'Contributed to structured analytics documentation and policy technology reports',
+        'Evaluated feasibility of technology adoption models supporting public-sector digital initiatives'
       ],
-      technologies: ['Research', 'Analytics', 'Documentation', 'Technology Assessment']
+      technologies: ['AI Research', 'Cloud Computing', 'Analytics', 'Policy Documentation']
     }
   ];
 

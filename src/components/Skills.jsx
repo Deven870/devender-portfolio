@@ -5,15 +5,24 @@ function Skills() {
   
   const skills = [
     { name: 'Python', icon: 'fab fa-python', color: 'text-blue-400' },
-    { name: 'Machine Learning', icon: 'fas fa-brain', color: 'text-purple-400' },
+    { name: 'SQL', icon: 'fas fa-database', color: 'text-blue-500' },
+    { name: 'Node.js', icon: 'fab fa-node-js', color: 'text-green-400' },
+    { name: 'C', icon: 'fas fa-code', color: 'text-slate-300' },
+    { name: 'Django', icon: 'fas fa-server', color: 'text-green-500' },
     { name: 'TensorFlow', icon: 'fas fa-project-diagram', color: 'text-orange-400' },
-    { name: 'FastAPI', icon: 'fas fa-bolt', color: 'text-green-400' },
-    { name: 'React', icon: 'fab fa-react', color: 'text-cyan-400' },
-    { name: 'Docker', icon: 'fab fa-docker', color: 'text-blue-500' },
-    { name: 'PostgreSQL', icon: 'fas fa-database', color: 'text-blue-600' },
+    { name: 'Keras', icon: 'fas fa-network-wired', color: 'text-red-400' },
+    { name: 'OpenCV', icon: 'fas fa-camera', color: 'text-pink-400' },
+    { name: 'scikit-learn', icon: 'fas fa-robot', color: 'text-amber-400' },
+    { name: 'Pandas', icon: 'fas fa-table', color: 'text-cyan-400' },
     { name: 'MongoDB', icon: 'fas fa-leaf', color: 'text-green-500' },
     { name: 'Git', icon: 'fab fa-git-alt', color: 'text-red-500' },
     { name: 'Linux', icon: 'fab fa-linux', color: 'text-yellow-400' },
+    { name: 'Machine Learning', icon: 'fas fa-brain', color: 'text-purple-400' },
+    { name: 'Computer Vision', icon: 'fas fa-eye', color: 'text-indigo-400' },
+    { name: 'Data Structures', icon: 'fas fa-sitemap', color: 'text-emerald-400' },
+    { name: 'OOP', icon: 'fas fa-cubes', color: 'text-fuchsia-400' },
+    { name: 'Operating Systems', icon: 'fas fa-microchip', color: 'text-gray-300' },
+    { name: 'System Design', icon: 'fas fa-drafting-compass', color: 'text-violet-400' },
   ]
 
   return (
@@ -31,7 +40,7 @@ function Skills() {
           </span>
         </h2>
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
           {skills.map((skill, index) => (
             <div 
               key={index}

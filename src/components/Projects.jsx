@@ -5,25 +5,18 @@ function Projects() {
   
   const projects = [
     {
-      title: 'Stock Price Prediction',
-      description: 'ML model to predict stock prices using LSTM neural networks with 85% accuracy',
-      tech: ['Python', 'TensorFlow', 'Pandas', 'Keras'],
+      title: 'Women Safety Analysis and Intelligent Threat Protection',
+      description: 'Built a real-time computer vision system for threat detection with facial recognition and automated distress alert mechanisms.',
+      tech: ['Python', 'OpenCV', 'MediaPipe', 'DeepFace', 'NumPy'],
       github: 'https://github.com/Deven870/stock-prediction',
-      icon: 'fa-chart-line'
-    },
-    {
-      title: 'Women Safety Detection',
-      description: 'Real-time safety system using computer vision and ML for threat detection',
-      tech: ['Python', 'OpenCV', 'YOLOv5', 'FastAPI'],
-      github: 'https://github.com/Deven870/women-safety',
       icon: 'fa-shield-alt'
     },
     {
-      title: 'Backend API System',
-      description: 'Scalable REST API with authentication, rate limiting, and microservices architecture',
-      tech: ['FastAPI', 'PostgreSQL', 'Redis', 'Docker'],
-      github: 'https://github.com/Deven870/backend-api',
-      icon: 'fa-server'
+      title: 'Stock Price Prediction Using LSTM Neural Networks',
+      description: 'Developed a deep learning forecasting pipeline with data preprocessing, normalization, and evaluation using TensorFlow and Keras.',
+      tech: ['Python', 'TensorFlow', 'Keras', 'scikit-learn', 'Pandas'],
+      github: 'https://github.com/Deven870/women-safety',
+      icon: 'fa-chart-line'
     },
   ]
 
@@ -42,7 +35,7 @@ function Projects() {
           </span>
         </h2>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
             <div 
               key={index}

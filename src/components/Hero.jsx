@@ -8,12 +8,17 @@ function Hero() {
         </h1>
         
         <h2 className="text-2xl md:text-4xl font-semibold text-gray-300 mb-6 animate-slide-up">
-          AI/ML Engineer | Backend Developer
+          Computer Science Undergraduate | Backend & ML Developer
         </h2>
         
-        <p className="text-lg md:text-xl text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.3s' }}>
-          Passionate about building intelligent systems and scalable backend solutions. 
-          Experienced in Machine Learning, AI, and Full Stack Development.
+        <p className="text-lg md:text-xl text-gray-400 mb-8 max-w-3xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.3s' }}>
+          Computer Science undergraduate (2022-2026) with experience in backend development, machine learning, and
+          data-driven systems. Skilled in designing RESTful APIs, optimizing database performance, and building
+          predictive models using Python and TensorFlow.
+        </p>
+
+        <p className="text-sm md:text-base text-gray-500 mb-8 animate-fade-in" style={{ animationDelay: '0.45s' }}>
+          Greater Noida, India | +91 9987318617 | dev2004.rld@gmail.com
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.6s' }}>

@@ -30,6 +30,35 @@ function Credentials() {
     'Python Concurrent Programming: Multiprocessing Skillsoft (Elite Certificate)'
   ]
 
+  const credlyProfile = 'https://www.credly.com/users/devender.39723b05/badges'
+
+  const credlyBadges = [
+    {
+      title: 'Building AI Solutions Using Advanced Algorithms and Open Source Frameworks',
+      issuer: 'IBM SkillsBuild',
+      issued: 'Jul 17, 2025',
+      image: 'https://images.credly.com/images/6079f8a6-0f3b-4fe5-b1db-57460d1c9282/image.png'
+    },
+    {
+      title: 'Fundamentals of Sustainability and Technology',
+      issuer: 'IBM SkillsBuild',
+      issued: 'Jul 1, 2025',
+      image: 'https://images.credly.com/images/cef0e894-8024-4a89-8337-c7ee295aef19/image.png'
+    },
+    {
+      title: 'Project Management Fundamentals',
+      issuer: 'IBM SkillsBuild',
+      issued: 'Jun 28, 2025',
+      image: 'https://images.credly.com/images/a4f13de3-9fc7-4d94-8f31-076999c2d06e/BadgeEmblem_ProjectManagementFundamentals.png'
+    },
+    {
+      title: 'Artificial Intelligence Fundamentals',
+      issuer: 'IBM SkillsBuild',
+      issued: 'Jun 19, 2025',
+      image: 'https://images.credly.com/images/82b908e1-fdcd-4785-9d32-97f11ccbcf08/image.png'
+    }
+  ]
+
   const achievements = [
     'Filed a patent related to research on machine learning-based stock price prediction algorithms.',
     'Represented at national level in Under-19 Basketball and Badminton.'
@@ -99,6 +128,44 @@ function Credentials() {
                   </div>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-6 pt-6 border-t border-white/10">
+              <div className="flex items-center justify-between mb-4">
+                <h4 className="text-white font-semibold">Credly Badge Wallet</h4>
+                <a
+                  href={credlyProfile}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-primary hover:text-purple-300 transition-colors"
+                >
+                  View all badges
+                </a>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                {credlyBadges.map((badge, index) => (
+                  <a
+                    key={index}
+                    href={credlyProfile}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group rounded-xl bg-bg-dark/70 border border-white/5 p-3 hover:border-primary/40 transition-all duration-300"
+                    title={`${badge.title} - ${badge.issuer}`}
+                  >
+                    <img
+                      src={badge.image}
+                      alt={badge.title}
+                      className="w-full aspect-square object-contain rounded-lg bg-white/5 p-2 mb-2"
+                      loading="lazy"
+                    />
+                    <p className="text-xs text-gray-300 leading-snug group-hover:text-white transition-colors">
+                      {badge.title}
+                    </p>
+                    <p className="text-[11px] text-gray-500 mt-1">{badge.issued}</p>
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
 

@@ -3,17 +3,54 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 function Contact() {
   const [ref, isVisible] = useScrollAnimation()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitState, setSubmitState] = useState({ type: '', message: '' })
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // You can implement form submission logic here
-    alert('Message sent! (This is a demo)')
-    setFormData({ name: '', email: '', message: '' })
+
+    try {
+      setIsSubmitting(true)
+      setSubmitState({ type: '', message: '' })
+
+      const payload = new FormData()
+      payload.append('name', formData.name)
+      payload.append('email', formData.email)
+      payload.append('message', formData.message)
+      payload.append('_subject', `Portfolio message from ${formData.name}`)
+      payload.append('_captcha', 'false')
+      payload.append('_template', 'table')
+
+      const response = await fetch('https://formsubmit.co/ajax/dev2004.rld@gmail.com', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json'
+        },
+        body: payload
+      })
+
+      if (!response.ok) {
+        throw new Error('Form submission failed')
+      }
+
+      setSubmitState({
+        type: 'success',
+        message: 'Message sent successfully. I will get back to you soon.'
+      })
+      setFormData({ name: '', email: '', message: '' })
+    } catch (error) {
+      setSubmitState({
+        type: 'error',
+        message: 'Message could not be sent right now. Please use the direct email link below.'
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e) => {
@@ -78,6 +115,22 @@ function Contact() {
 
         {/* Contact Form */}
         <div className="bg-bg-card p-8 rounded-xl border border-gray-700">
+          <div className="mb-6 rounded-xl border border-primary/10 bg-bg-dark/70 p-4 text-sm text-gray-400">
+            Use the form for direct outreach, or email me if you prefer a faster response channel.
+          </div>
+
+          {submitState.message ? (
+            <div
+              className={`mb-6 rounded-xl border p-4 text-sm ${
+                submitState.type === 'success'
+                  ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300'
+                  : 'border-rose-500/30 bg-rose-500/10 text-rose-300'
+              }`}
+            >
+              {submitState.message}
+            </div>
+          ) : null}
+
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="name" className="block text-gray-300 mb-2 font-medium">
@@ -129,10 +182,11 @@ function Contact() {
             
             <button 
               type="submit"
-              className="w-full px-8 py-4 bg-gradient-to-r from-primary to-primary-dark text-white rounded-lg font-semibold hover:scale-105 transition-transform duration-200 shadow-lg"
+              disabled={isSubmitting}
+              className="w-full px-8 py-4 bg-gradient-to-r from-primary to-primary-dark text-white rounded-lg font-semibold hover:scale-105 transition-transform duration-200 shadow-lg disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:scale-100"
             >
               <i className="fas fa-paper-plane mr-2"></i>
-              Send Message
+              {isSubmitting ? 'Sending...' : 'Send Message'}
             </button>
           </form>
         </div>

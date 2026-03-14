@@ -1,5 +1,6 @@
 import AnimatedBackground from './components/AnimatedBackground'
 import Contact from './components/Contact'
+import Credentials from './components/Credentials'
 import Experience from './components/Experience'
 import GithubStats from './components/GithubStats'
 import Hero from './components/Hero'
@@ -22,6 +23,7 @@ function App() {
       <Navbar />
       <Hero />
       <Skills />
+      <Credentials />
       <Experience />
       <Projects />
       <GithubStats />

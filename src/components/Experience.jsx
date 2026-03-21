@@ -29,18 +29,6 @@ function Experience() {
         'Collaborated through Git-based workflows including feature branching, pull requests, and code reviews'
       ],
       technologies: ['Python', 'RESTful APIs', 'SQL', 'MongoDB', 'Git', 'System Design']
-    },
-    {
-      title: 'Summer Intern',
-      company: 'NITI Aayog',
-      location: 'India',
-      period: 'June 2024 - July 2024',
-      description: [
-        'Researched emerging technologies including artificial intelligence, cloud computing, and digital transformation frameworks',
-        'Contributed to structured analytics documentation and policy technology reports',
-        'Evaluated feasibility of technology adoption models supporting public-sector digital initiatives'
-      ],
-      technologies: ['AI Research', 'Cloud Computing', 'Analytics', 'Policy Documentation']
     }
   ];
 
